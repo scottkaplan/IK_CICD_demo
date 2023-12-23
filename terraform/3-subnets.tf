@@ -1,5 +1,5 @@
 resource "aws_subnet" "private-us-west-1a" {
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.IK.id
   cidr_block        = "10.0.0.0/19"
   availability_zone = "us-west-1a"
 
@@ -11,7 +11,7 @@ resource "aws_subnet" "private-us-west-1a" {
 }
 
 resource "aws_subnet" "private-us-west-1c" {
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.IK.id
   cidr_block        = "10.0.32.0/19"
   availability_zone = "us-west-1c"
 
@@ -23,7 +23,7 @@ resource "aws_subnet" "private-us-west-1c" {
 }
 
 resource "aws_subnet" "public-us-west-1a" {
-  vpc_id                  = aws_vpc.main.id
+  vpc_id                  = aws_vpc.IK.id
   cidr_block              = "10.0.64.0/19"
   availability_zone       = "us-west-1a"
   map_public_ip_on_launch = true
@@ -36,7 +36,7 @@ resource "aws_subnet" "public-us-west-1a" {
 }
 
 resource "aws_subnet" "public-us-west-1c" {
-  vpc_id                  = aws_vpc.main.id
+  vpc_id                  = aws_vpc.IK.id
   cidr_block              = "10.0.96.0/19"
   availability_zone       = "us-west-1c"
   map_public_ip_on_launch = true
