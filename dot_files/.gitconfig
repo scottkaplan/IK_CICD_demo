@@ -1,0 +1,6 @@
+[user]
+	name = Scott Kaplan
+	email = scott@kaplans.com
+	
+[credential]
+	helper = store
