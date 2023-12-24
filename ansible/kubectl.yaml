@@ -1,0 +1,57 @@
+- name: Custom packages
+  hosts: localhost
+  vars:
+    bin_dir: /home/ec2-user/bin
+  tasks:
+    - name: Install kubectl
+      uri:
+        url: https://dl.k8s.io/release/stable.txt
+        return_content: yes
+      register: version
+
+    - name: Create the bin directory if it does not exist
+      ansible.builtin.file:
+        path: "{{ bin_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download the latest kubectl release
+      uri:
+        url: https://dl.k8s.io/release/{{ version.content }}/bin/linux/arm/kubectl
+        dest: "{{ bin_dir }}/kubectl"
+        status_code:
+          - 200
+          - 304
+      register: kubectl
+
+    - name: Download the kubectl checksum file
+      uri:
+        url: https://dl.k8s.io/{{ version.content }}/bin/linux/arm/kubectl.sha256
+        dest: /tmp
+
+    - name: Validate the kubectl binary against the checksum file
+      shell: echo "$(cat /tmp/kubectl.sha256)  {{ bin_dir }}/kubectl" | sha256sum --check
+      register: result
+
+    - name: Assert that the kubectl binary is OK
+      vars:
+        expected: "{{ bin_dir }}/kubectl: OK"
+      assert:
+        that:
+          - result.stdout == expected
+        fail_msg: "{{ result.stdout }}"
+        success_msg: "{{ result.stdout }}"
+
+    - name: Move kubectl and change permissions
+      file:
+        src: "{{ kubectl.path }}"
+        dest: /usr/local/bin/kubectl
+        state: hard
+        owner: root
+        group: root
+        mode: "+x"
+
+    - name: Check if kubectl is installed
+      shell: kubectl version --client
+      register: client
+      failed_when: client.rc > 1

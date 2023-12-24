@@ -1,0 +1,14 @@
+- name: Custom packages
+  hosts: localhost
+  tasks:
+    - name: yum update
+      yum:
+        name: '*'
+        state: latest
+          
+    - name: Install packages
+      yum:
+        name:
+          - emacs
+          - docker
+        state: latest
