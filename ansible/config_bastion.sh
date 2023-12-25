@@ -1,5 +1,6 @@
 #!/bin/bash
 
+uname -a
 sudo /usr/bin/yum -y install ansible
 mkdir /tmp/ansible
 for f in packages dot_files kubectl jenkins; do
