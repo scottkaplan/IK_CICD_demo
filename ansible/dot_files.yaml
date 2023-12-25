@@ -1,0 +1,58 @@
+- name: Install dot files
+  hosts: localhost
+  vars:
+    home_dir: /home/ec2-user
+  tasks:
+    - name: Create the .aws directory if it does not exist
+      ansible.builtin.file:
+        path: "{{ home_dir }}/.aws"
+        state: directory
+        mode: 0755
+
+    - name: Install the AWS credential template
+      uri:
+        url: https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/dot_files/.aws/credentials
+        creates: "{{ home_dir }}/.aws"
+        owner: ec2-user
+        group: ec2-user
+        mode: 0644
+
+    - name: Install the AWS config
+      uri:
+        url: https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/dot_files/.aws/config
+        creates: "{{ home_dir }}/.aws"
+        owner: ec2-user
+        group: ec2-user
+        mode: 0644
+
+    - name: Install .emacs
+      uri:
+        url: https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/dot_files/.emacs
+        creates: "{{ home_dir }}"
+        owner: ec2-user
+        group: ec2-user
+        mode: 0644
+
+    - name: Install Git credential template
+      uri:
+        url: https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/dot_files/.git-credentials
+        creates: "{{ home_dir }}"
+        owner: ec2-user
+        group: ec2-user
+        mode: 0644
+
+    - name: Install Git configuration
+      uri:
+        url: https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/dot_files/.gitconfig
+        creates: "{{ home_dir }}"
+        owner: ec2-user
+        group: ec2-user
+        mode: 0644
+
+    - name: Install Git ignore files
+      uri:
+        url: https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/dot_files/.gitignore
+        creates: "{{ home_dir }}"
+        owner: ec2-user
+        group: ec2-user
+        mode: 0644
