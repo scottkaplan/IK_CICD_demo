@@ -10,7 +10,7 @@
         state: directory
         mode: 0755
 
-    - name: Install the AWS credential template
+    - name: Install the dot files
       uri:
         url: "{{ github_url }}/{{ item }}"
         creates: "{{ home_dir }}/{{ item }}"
@@ -23,4 +23,3 @@
         - '.emacs'
         - '.git-credentials'
         - '.gitconfig'
-        - '.gitignore'
