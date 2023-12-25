@@ -12,13 +12,8 @@ resource "aws_instance" "IK-bastion" {
 
   provisioner "local-exec" {
     command = <<EOT
-      sudo yum -y install ansible
-      mkdir /tmp/ansible
-      cd /tmp/ansible; wget https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/ansible/dot_files.yaml
-      cd /tmp/ansible; wget https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/ansible/jenkins.yaml
-      cd /tmp/ansible; wget https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/ansible/kubectl.yaml
-      cd /tmp/ansible; wget https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/ansible/packages.yaml
-      sudo ansible-playbook /tmp/ansible/*.yaml
+      /usr/bin/wget -O /tmp/config_bastion.sh https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/ansible/config_bastion.sh
+      /bin/bash /tmp/config_bastion.sh
     EOT
   }
 }
