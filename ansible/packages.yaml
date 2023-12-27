@@ -10,5 +10,4 @@
       yum:
         name:
           - emacs
-          - docker
         state: latest

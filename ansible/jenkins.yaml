@@ -1,4 +1,4 @@
-- name: Install Jenkins
+- name: Install Jenkins/Docker
   hosts: localhost
   tasks:
     - name: Import jenkins key from url
@@ -16,11 +16,20 @@
         name:
         - java
         - jenkins
+        - docker
         state: latest
+
+    - name: Give Jenkins permission
+      command: usermod -a -G docker jenkins
 
     - name: Start jenkins
       ansible.builtin.systemd:
         name: jenkins
+        state: started
+
+    - name: Start docker
+      ansible.builtin.systemd:
+        name: docker
         state: started
 
     - name: Get initial admin password
