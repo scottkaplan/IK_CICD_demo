@@ -29,4 +29,4 @@
 
     - name: Print initial admin password
       debug:
-      msg: "{{initial_admin_password.stdout}}"
+        msg: "{{initial_admin_password.stdout}}"
