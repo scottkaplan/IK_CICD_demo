@@ -1,11 +1,6 @@
-# IAC files for IK demo
-
-## To Test
-- DNS for ik-bastion.kaplans.com is updated
+# IAC setup for IK demo
 
 ## To Do
-- Run terraform from outside AWS
-- Figure out a way to distribute IK.pm in 11-bastion.tf and .aws/credentials in 0-provider.tf
 - Test Jenkins ECR deploy to EKS
 - add DNS for k8s service
 
@@ -19,7 +14,8 @@
   - Procedure
     -  `git clone https://github.com/scottkaplan/IK_CICD_demo.git`
     -  `cd terraform`
-    -  `terraform apply`
+    -  `terraform apply --var aws_credentials_file="/home/scott/.aws/credentials" --var ssh_private_key_file="/home/scott/.ssh/IK.pem"`
+       - default home directory is /home/ec2-user/...
 - Jenkins server
   -   Open Jenkins: https://ik-jenkins.kaplans.com:8080
   Paste initial admin password from 'terraform apply' output

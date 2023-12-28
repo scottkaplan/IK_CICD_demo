@@ -85,7 +85,7 @@ resource "aws_instance" "IK-bastion" {
     type = "ssh"
     host = aws_instance.IK-bastion.public_ip
     user = "ec2-user"
-    private_key = "${file("/home/ec2-user/.ssh/IK.pem")}"
+    private_key = "${file("/home/scott/.ssh/IK.pem")}"
     agent = true
   }
 
@@ -97,12 +97,12 @@ resource "aws_instance" "IK-bastion" {
   }
 }
 
-resource "aws_route53_zone" "kaplans" {
+data "aws_route53_zone" "kaplans" {
   name = "kaplans.com"
 }
 
 resource "aws_route53_record" "ik-bastion" {
-  zone_id = aws_route53_zone.kaplans.zone_id
+  zone_id = data.aws_route53_zone.kaplans.zone_id
   name    = "ik-bastion.kaplans.com"
   type    = "A"
   ttl     = 300
@@ -110,7 +110,7 @@ resource "aws_route53_record" "ik-bastion" {
 }
 
 resource "aws_route53_record" "ik-jenkins" {
-  zone_id = aws_route53_zone.kaplans.zone_id
+  zone_id = data.aws_route53_zone.kaplans.zone_id
   name    = "ik-jenkins.kaplans.com"
   type    = "A"
   ttl     = 300
