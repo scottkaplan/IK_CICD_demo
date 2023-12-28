@@ -2,11 +2,10 @@
 
 ## To Test
 - DNS for ik-bastion.kaplans.com is updated
-- Correct AMI is selected for bastion and Jenkins
-- Jenkins and docker restart on reboot
 
 ## To Do
 - Run terraform from outside AWS
+- Figure out a way to distribute IK.pm in 11-bastion.tf and .aws/credentials in 0-provider.tf
 - Test Jenkins ECR deploy to EKS
 - add DNS for k8s service
 
