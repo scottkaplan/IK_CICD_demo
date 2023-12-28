@@ -26,11 +26,13 @@
       ansible.builtin.systemd:
         name: jenkins
         state: started
+        enabled: true
 
     - name: Start docker
       ansible.builtin.systemd:
         name: docker
         state: started
+        enabled: true
 
     - name: Get initial admin password
       command: cat /var/lib/jenkins/secrets/initialAdminPassword
