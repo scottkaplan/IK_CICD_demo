@@ -1,0 +1,77 @@
+# MANUAL STEPS:
+
+From a machine with terraform, .aws/credentials, .ssh/IK-pem, and the aws cli:
+  git clone https://github.com/scottkaplan/IK_CICD_demo.git
+  cd terraform
+  terraform apply
+Jenkins
+  Open Jenkins: https://<Public IP>:8080
+  Paste initial admin password from 'terraform apply' output
+  Install basic plugins
+  Install Docker, Docker Pipeline plugins
+  Create a job
+  - Create a pipeline
+  - Pipeline
+    - Definition: Pipeline script from SCM
+    - SCM: Git
+    - Repository URL: https://github.com/scottkaplan/IK_CICD_demo.git
+    - Branch specification: */main
+
+On bastion host
+.aws/credentials
+- Create ~/.kube/config: aws eks update-kubeconfig --region us-west-1 --name demo
+kubectl apply -f deployment.yml
+
+Test Jenkins ECR deploy to EKS
+add Github triggering
+add elastic IP to bastion, Jenkins and k8s service
+
+# Developer config
+.git-credentials
+
+# In emacs
+M-x package-install yaml-mode
+M-x package-install magit
+M-x package-install jenkinsfile-mode
+M-x package-install terraform-mode
+
+
+TODO
+replace hardcode ami
+edit credentials files automatically
+
+# AWS REGION ONE-TIME CONFIG
+
+# - create ECR repository (aws ecr create-repository --repository-name hello-repository --region us-west-1)
+# - create ssh keys (.ssh/authorized_keys)
+
+# DOCUMENTATION
+
+# Handled by Ansible
+sudo yum update
+sudo yum upgrade
+yum install emacs
+sudo yum install docker -y
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo dnf install java-17-amazon-corretto -y
+sudo yum install jenkins -y
+systemctl enable jenkins
+systemctl start jenkins
+systemctl status jenkins
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.3/2023-11-14/bin/linux/amd64/kubectl
+install dot_files
+
+# Handled by Jenkins
+
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar -xz -C bin
+eksctl create cluster --name ik --region us-west-1 --nodegroup-name worker-nodes --node-type t3a.micro --nodes 2
+
+docker build -t hello-world .
+docker images --filter reference=hello-world
+docker run -t -i -p 80:80 hello-world
+docker tag hello-world 775956577581.dkr.ecr.us-west-1.amazonaws.com/hello-repository
+aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 775956577581.dkr.ecr.us-west-1.amazonaws.com
+docker push 775956577581.dkr.ecr.us-west-1.amazonaws.com/hello-repository
+
+
