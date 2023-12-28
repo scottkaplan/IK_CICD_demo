@@ -13,6 +13,8 @@
       ansible.builtin.file:
         path: "{{ bin_dir }}"
         state: directory
+        owner: ec2-user
+        group: ec2-user
         mode: '0755'
 
     - name: Download the latest kubectl release
@@ -47,8 +49,8 @@
         src: "{{ kubectl.path }}"
         dest: /usr/local/bin/kubectl
         state: hard
-        owner: root
-        group: root
+        owner: ec2-user
+        group: ec2-user
         mode: "+x"
 
     - name: Check if kubectl is installed
