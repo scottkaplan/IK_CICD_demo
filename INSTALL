@@ -1,3 +1,13 @@
+# TO TEST
+DNS for ik-bastion.kaplans.com is updated
+Correct AMI is selected for bastion and Jenkins
+Jenkins and docker restart on reboot
+
+# TO DO
+Run terraform from outside AWS
+Test Jenkins ECR deploy to EKS
+add DNS for k8s service
+
 # MANUAL STEPS:
 
 From a machine with terraform, .aws/credentials, .ssh/IK-pem, and the aws cli:
@@ -16,15 +26,10 @@ Jenkins
     - SCM: Git
     - Repository URL: https://github.com/scottkaplan/IK_CICD_demo.git
     - Branch specification: */main
-
-On bastion host
-.aws/credentials
-- Create ~/.kube/config: aws eks update-kubeconfig --region us-west-1 --name demo
-kubectl apply -f deployment.yml
-
-Test Jenkins ECR deploy to EKS
-add Github triggering
-add elastic IP to bastion, Jenkins and k8s service
+Bastion host
+  - Edit .aws/credentials
+  - Create ~/.kube/config: aws eks update-kubeconfig --region us-west-1 --name demo
+  - kubectl apply -f deployment.yml
 
 # Developer config
 .git-credentials
@@ -40,10 +45,16 @@ TODO
 replace hardcode ami
 edit credentials files automatically
 
-# AWS REGION ONE-TIME CONFIG
+# ONE-TIME CONFIG
+AWS
+  - create ECR repository (aws ecr create-repository --repository-name hello-repository --region us-west-1)
+  - create ssh keys (.ssh/authorized_keys)
+Github
+  - Webhook
+    - Payload URL: http://ik-jenkins.kaplans.com:8080/github-webhook/
+    - Content type: application/json
+    - Let me select individual events: Pull request, Pushes
 
-# - create ECR repository (aws ecr create-repository --repository-name hello-repository --region us-west-1)
-# - create ssh keys (.ssh/authorized_keys)
 
 # DOCUMENTATION
 
