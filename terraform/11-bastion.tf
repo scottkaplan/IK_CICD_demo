@@ -48,8 +48,29 @@ resource "aws_security_group" "bastion" {
   }
 }
 
+data "aws_ami" "base_ami" {
+  most_recent      = true
+  owners           = ["amazon"]
+ 
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+ 
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+ 
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+ 
+}
+
 resource "aws_instance" "IK-bastion" {
-  ami           = "ami-0082110c417e4726e"
+  ami           = data.aws_ami.base_ami.id
   instance_type = "t3.medium"
   key_name = "IK"
   iam_instance_profile = "IK-ec2"
