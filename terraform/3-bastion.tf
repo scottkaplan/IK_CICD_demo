@@ -89,17 +89,19 @@ resource "aws_instance" "IK-bastion" {
     agent = true
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir /home/ec2-user/.aws",
+      "/usr/bin/wget -O /tmp/config_bastion.sh https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/ansible/config_bastion.sh",
+      "/bin/bash /tmp/config_bastion.sh"
+    ]
+  }
+
   provisioner "file" {
     source = var.aws_credentials_file
     destination = "/home/ec2-user/.aws/credentials"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "/usr/bin/wget -O /tmp/config_bastion.sh https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/ansible/config_bastion.sh",
-      "/bin/bash /tmp/config_bastion.sh"
-    ]
-  }
 }
 
 data "aws_route53_zone" "kaplans" {
