@@ -20,7 +20,6 @@
         group: ec2-user
         mode: 0644
       loop:
-        - '.aws/credentials'
         - '.aws/config'
         - '.emacs'
         - '.git-credentials'

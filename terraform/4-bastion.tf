@@ -85,8 +85,13 @@ resource "aws_instance" "IK-bastion" {
     type = "ssh"
     host = aws_instance.IK-bastion.public_ip
     user = "ec2-user"
-    private_key = "${file("/home/scott/.ssh/IK.pem")}"
+    private_key = "${file(var.ssh_private_key_file)}"
     agent = true
+  }
+
+  provisioner "file" {
+    source = var.aws_credentials_file
+    destination = "/home/ec2-user/.aws/credentials"
   }
 
   provisioner "remote-exec" {

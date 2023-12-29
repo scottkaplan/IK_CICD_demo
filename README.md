@@ -1,8 +1,12 @@
 # IAC setup for IK demo
 
+## Next full standup test
+- Verify .aws/credentials is installed
+
 ## To Do
 - Test Jenkins ECR deploy to EKS
 - add DNS for k8s service
+- use IAM roles instead of .aws/credentials
 
 ## Setup Playbook
 - Bootstrap server
