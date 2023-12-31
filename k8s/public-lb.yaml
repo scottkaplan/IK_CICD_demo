@@ -8,8 +8,8 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: nginx
+    app: web
   ports:
     - protocol: TCP
       port: 80
-      targetPort: web
+      targetPort: 3000

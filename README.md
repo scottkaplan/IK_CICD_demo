@@ -4,7 +4,7 @@
 - Bootstrap server
   - Prerequisites
     - terraform
-    - .aws/creentials
+    - .aws/credentials
     - .ssh/IK-pem
     - AWS CLI
   - Procedure
@@ -25,7 +25,6 @@
     - Repository URL: https://github.com/scottkaplan/IK_CICD_demo.git
     - Branch specification: */main
 - Bastion host
-  - Edit .aws/credentials
   - Create ~/.kube/config:
     - `aws eks update-kubeconfig --region us-west-1 --name demo`
   - `kubectl apply -f deployment.yml`
