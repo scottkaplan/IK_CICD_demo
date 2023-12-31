@@ -1,13 +1,5 @@
 # IAC setup for IK demo
 
-## Next full standup test
-- Verify .aws/credentials is installed
-
-## To Do
-- Test Jenkins ECR deploy to EKS
-- add DNS for k8s service
-- use IAM roles instead of .aws/credentials
-
 ## Setup Playbook
 - Bootstrap server
   - Prerequisites
@@ -16,16 +8,16 @@
     - .ssh/IK-pem
     - AWS CLI
   - Procedure
-    -  `git clone https://github.com/scottkaplan/IK_CICD_demo.git`
-    -  `cd terraform`
-    -  `terraform apply --var aws_credentials_file="/home/scott/.aws/credentials" --var ssh_private_key_file="/home/scott/.ssh/IK.pem"`
+    - `git clone https://github.com/scottkaplan/IK_CICD_demo.git`
+    - `cd terraform`
+    - `terraform apply --var aws_credentials_file="/home/scott/.aws/credentials" --var ssh_private_key_file="/home/scott/.ssh/IK.pem"`
        - default home directory is /home/ec2-user/...
 - Jenkins server
-  -   Open Jenkins: https://ik-jenkins.kaplans.com:8080
-  Paste initial admin password from 'terraform apply' output
-  Install basic plugins
-  Install Docker, Docker Pipeline plugins
-  Create a job
+  - Open Jenkins: https://ik-jenkins.kaplans.com:8080
+    - Paste initial admin password from 'terraform apply' output
+    - Install basic plugins
+    - Install Docker, Docker Pipeline plugins
+    - Create a job
   - Create a pipeline
   - Pipeline
     - Definition: Pipeline script from SCM
@@ -37,6 +29,11 @@
   - Create ~/.kube/config:
     - `aws eks update-kubeconfig --region us-west-1 --name demo`
   - `kubectl apply -f deployment.yml`
+
+## To Do
+- Test Jenkins ECR deploy to EKS
+- add DNS for k8s service
+- use IAM roles instead of .aws/credentials
 
 ## Developer config
 
