@@ -23,7 +23,7 @@ pipeline {
 	    steps {
 		checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/sd031/aws_codebuild_codedeploy_nodeJs_demo.git']]]) 
 	    }
-	}
+        }
 
 	stage('Building Docker image') {
 	    steps{
@@ -43,6 +43,8 @@ pipeline {
 	}
 	stage('Deploying container to K8s') {
 	    steps {
+		sh 'pwd'
+		sh 'ls'
 		sh '/usr/local/bin/kubectl apply -f k8s/deployment.yaml'
 		sh '/usr/local/bin/kubectl apply -f k8s/service.yaml'
 	    }
