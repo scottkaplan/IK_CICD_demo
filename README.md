@@ -24,6 +24,7 @@
     - SCM: Git
     - Repository URL: https://github.com/scottkaplan/IK_CICD_demo.git
     - Branch specification: */main
+  - Github polling
 - Bastion host
   - Create ~/.kube/config:
     - `aws eks update-kubeconfig --region us-west-1 --name demo`
