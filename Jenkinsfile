@@ -38,6 +38,7 @@ pipeline {
 	stage('Deploying container to K8s') {
 	    steps {
 		sh 'aws eks update-kubeconfig --region us-west-1 --name demo'
+		sh 'aws sts get-caller-identity'
 		sh 'echo $KUBECONFIG'
 		sh 'kubectl --kubeconfig /var/lib/jenkins/.kube/config version'
 		// sh '/usr/local/bin/kubectl apply -f k8s/deployment.yaml'
