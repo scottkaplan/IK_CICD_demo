@@ -43,7 +43,6 @@ pipeline {
 		// sh '/usr/local/bin/kubectl apply -f k8s/service.yaml'
 		// withKubeConfig(caCertificate: '', clusterName: 'demo', contextName: '', credentialsId: '', namespace: '', restrictKubeConfigAccess: false, serverUrl: 'https://C0CE5CECA23E21B4AF56FF6EC4187ABD.sk1.us-west-1.eks.amazonaws.com') {
 		// kubectl version
-		}
 	    }
 	}
     }
