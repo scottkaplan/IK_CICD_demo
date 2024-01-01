@@ -38,7 +38,7 @@ pipeline {
 	stage('Deploying container to K8s') {
 	    steps {
 		sh 'aws eks update-kubeconfig --region us-west-1 --name demo'
-		sh '/usr/local/bin/kubectl version'
+		sh '/usr/local/bin/kubectl --kubeconfig /home/ec2-user/.kube/config version'
 		sh '/usr/local/bin/kubectl apply -f k8s/deployment.yaml'
 		// sh '/usr/local/bin/kubectl apply -f k8s/service.yaml'
 	    }
