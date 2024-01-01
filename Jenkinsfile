@@ -40,6 +40,7 @@ pipeline {
 		sh 'aws eks update-kubeconfig --region us-west-1 --name demo'
 		sh 'aws sts get-caller-identity'
 		withKubeConfig([credentialsId: 'ik-demo-config']) {
+		    sh 'kubectl version'
 		    sh 'kubectl apply -f k8s/deployment.yaml'
 		}
 		sh 'kubectl version'
