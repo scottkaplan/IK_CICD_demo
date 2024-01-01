@@ -38,8 +38,8 @@ pipeline {
 	stage('Deploying container to K8s') {
 	    steps {
 		sh 'aws eks update-kubeconfig --region us-west-1 --name demo'
-		sh 'kubectl version'
 		sh 'echo $KUBECONFIG'
+		sh 'kubectl version'
 		// sh '/usr/local/bin/kubectl apply -f k8s/deployment.yaml'
 		// sh '/usr/local/bin/kubectl apply -f k8s/service.yaml'
 		// withKubeConfig(caCertificate: '', clusterName: 'demo', contextName: '', credentialsId: '', namespace: '', restrictKubeConfigAccess: false, serverUrl: 'https://C0CE5CECA23E21B4AF56FF6EC4187ABD.sk1.us-west-1.eks.amazonaws.com') {
