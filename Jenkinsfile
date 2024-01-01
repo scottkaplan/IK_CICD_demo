@@ -40,7 +40,7 @@ pipeline {
 		sh 'aws eks update-kubeconfig --region us-west-1 --name demo'
 		sh 'aws sts get-caller-identity'
 		sh 'kubectl version'
-		// sh '/usr/local/bin/kubectl apply -f k8s/deployment.yaml'
+		sh 'kubectl apply -f k8s/deployment.yaml'
 		// sh '/usr/local/bin/kubectl apply -f k8s/service.yaml'
 	    }
 	}
