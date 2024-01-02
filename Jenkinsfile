@@ -41,10 +41,6 @@ pipeline {
 		sh 'aws sts get-caller-identity'
 		sh 'kubectl auth whoami'
 		sh 'kubectl version'
-		withKubeConfig([credentialsId: 'ik-demo-config']) {
-		    sh 'kubectl version'
-		    sh 'kubectl apply -f k8s/deployment.yaml'
-		}
 		sh 'kubectl apply -f k8s/deployment.yaml'
 		// sh '/usr/local/bin/kubectl apply -f k8s/service.yaml'
 	    }
