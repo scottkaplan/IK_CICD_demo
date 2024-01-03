@@ -69,12 +69,17 @@ data "aws_ami" "base_ami" {
  
 }
 
+resource "aws_iam_instance_profile" "eks-cluster-demo" {
+  name = "eks-cluster-demo"
+  role = aws_iam_role.demo.name
+}
+
 resource "aws_instance" "IK-bastion" {
   ami           = data.aws_ami.base_ami.id
   instance_type = "t3.medium"
   key_name = "IK"
   # iam_instance_profile = "IK-ec2"
-  iam_instance_profile = aws_iam_role.demo.name
+  iam_instance_profile = aws_iam_instance_profile.eks-cluster-demo.name
   subnet_id = aws_subnet.public-us-west-1a.id
   vpc_security_group_ids = [aws_security_group.bastion.id]
 

@@ -26,9 +26,7 @@
     - Branch specification: */main
   - Github polling
 - Bastion host
-  - Create ~/.kube/config:
-    - `aws eks update-kubeconfig --region us-west-1 --name demo`
-  - `kubectl apply -f deployment.yml`
+  - install /var/lib/jenkins/.aws/credential
 
 ## To Do
 - Test Jenkins ECR deploy to EKS
