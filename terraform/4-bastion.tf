@@ -78,7 +78,6 @@ resource "aws_instance" "IK-bastion" {
   ami           = data.aws_ami.base_ami.id
   instance_type = "t3.medium"
   key_name = "IK"
-  # iam_instance_profile = "IK-ec2"
   iam_instance_profile = aws_iam_instance_profile.eks-cluster-demo.name
   subnet_id = aws_subnet.public-us-west-1a.id
   vpc_security_group_ids = [aws_security_group.bastion.id]
@@ -97,7 +96,8 @@ resource "aws_instance" "IK-bastion" {
 
   provisioner "remote-exec" {
     inline = [
-      "mkdir /home/ec2-user/.aws",
+      "mkdir /var/lib/jenkins/.aws",
+      "chown jenkins:jenkins /var/lib/jenkins/.aws",
       "/usr/bin/wget -O /tmp/config_bastion.sh https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/ansible/config_bastion.sh",
       "/bin/bash /tmp/config_bastion.sh"
     ]
@@ -105,7 +105,7 @@ resource "aws_instance" "IK-bastion" {
 
   provisioner "file" {
     source = var.aws_credentials_file
-    destination = "/home/ec2-user/.aws/credentials"
+    destination = "/var/lib/jenkins/.aws/credentials"
   }
 
 }
