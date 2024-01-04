@@ -17,14 +17,14 @@
     - Paste initial admin password from 'terraform apply' output
     - Install basic plugins
     - Install Docker, Docker Pipeline plugins
-    - Create a job
-  - Create a pipeline
-  - Pipeline
-    - Definition: Pipeline script from SCM
-    - SCM: Git
-    - Repository URL: https://github.com/scottkaplan/IK_CICD_demo.git
-    - Branch specification: */main
-  - Github polling
+  - Create a job
+    - Create a pipeline
+    - Pipeline
+      - GitHub hook trigger for GITScm polling
+      - Definition: Pipeline script from SCM
+        - SCM: Git
+        - Repository URL: https://github.com/scottkaplan/IK_CICD_demo.git
+        - Branch specification: */main
 - Bastion host
   - install /var/lib/jenkins/.aws/credential
 
