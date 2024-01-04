@@ -42,7 +42,7 @@ pipeline {
 		            sh 'kubectl auth whoami'
 		            sh 'kubectl version'
 		            sh 'kubectl apply -f k8s/deployment.yaml'
-		            sh 'kubectl apply -f k8s/public-lb.yaml'
+		            # sh 'kubectl apply -f k8s/public-lb.yaml'
 	          }
 	      }
     }
