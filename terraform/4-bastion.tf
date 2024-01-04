@@ -96,10 +96,10 @@ resource "aws_instance" "IK-bastion" {
 
   provisioner "remote-exec" {
     inline = [
-      "mkdir /var/lib/jenkins/.aws",
-      "chown jenkins:jenkins /var/lib/jenkins/.aws",
       "/usr/bin/wget -O /tmp/config_bastion.sh https://raw.githubusercontent.com/scottkaplan/IK_CICD_demo/main/ansible/config_bastion.sh",
-      "/bin/bash /tmp/config_bastion.sh"
+      "/bin/bash /tmp/config_bastion.sh",
+      "sudo mkdir --mode=777 /var/lib/jenkins/.aws",
+      "sudo chown jenkins:jenkins /var/lib/jenkins/.aws",
     ]
   }
 
@@ -107,7 +107,10 @@ resource "aws_instance" "IK-bastion" {
     source = var.aws_credentials_file
     destination = "/var/lib/jenkins/.aws/credentials"
   }
+}
 
+resource "aws_eip" "IK-bastion" {
+  instance = aws_instance.IK-bastion.id
 }
 
 data "aws_route53_zone" "kaplans" {
@@ -119,7 +122,7 @@ resource "aws_route53_record" "ik-bastion" {
   name    = "ik-bastion.kaplans.com"
   type    = "A"
   ttl     = 300
-  records = [aws_instance.IK-bastion.public_ip]
+  records = [aws_eip.IK-bastion.public_ip]
 }
 
 resource "aws_route53_record" "ik-jenkins" {
@@ -127,5 +130,5 @@ resource "aws_route53_record" "ik-jenkins" {
   name    = "ik-jenkins.kaplans.com"
   type    = "A"
   ttl     = 300
-  records = [aws_instance.IK-bastion.public_ip]
+  records = [aws_eip.IK-bastion.public_ip]
 }
