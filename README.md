@@ -25,13 +25,10 @@
         - SCM: Git
         - Repository URL: https://github.com/scottkaplan/IK_CICD_demo.git
         - Branch specification: */main
-- Bastion host
-  - install /var/lib/jenkins/.aws/credential
 
 ## To Do
-- Test Jenkins ECR deploy to EKS
-- add DNS for k8s service
 - use IAM roles instead of .aws/credentials
+- lockdown ~jenkins/.aws to 700
 
 ## Developer config
 
