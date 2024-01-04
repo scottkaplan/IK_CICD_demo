@@ -34,9 +34,9 @@
 
 - Edit ~/.git-credentials
 - Emacs packages
-  - M-x package-install yaml-mode
   - M-x package-install magit
-  - M-x package-install jenkinsfile-mode
+  - M-x package-install yaml-mode
+  - M-x package-install groovy-mode
   - M-x package-install terraform-mode
 
 ## One-time config
