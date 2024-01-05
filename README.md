@@ -27,9 +27,8 @@
         - Branch specification: */main
 
 ## To Do
-- Create DNS record for LB IP
 - name of LB should be demo, not example
-- kubectl credentials for user ec2-user on bastion
+- keep installing ~ec2-user/.aws/credentials
 - use IAM roles instead of .aws/credentials
 - lockdown ~jenkins/.aws to 700
 

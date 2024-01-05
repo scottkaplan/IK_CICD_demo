@@ -31,13 +31,12 @@ resource "kubernetes_service" "example" {
   }
 }
 
-# Create a local variable for the load balancer name.
-locals {
-  lb_name = split("-", split(".", kubernetes_service.example.status.0.load_balancer.0.ingress.0.hostname).0).0
-}
-
-output "load_balancer_name" {
-  value = local.lb_name
+resource "aws_route53_record" "ik-k8s" {
+  zone_id = data.aws_route53_zone.kaplans.zone_id
+  name    = "ik-k8s.kaplans.com"
+  type    = "CNAME"
+  ttl     = 300
+  records = [kubernetes_service.example.status.0.load_balancer.0.ingress.0.hostname]
 }
 
 output "load_balancer_hostname" {
