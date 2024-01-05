@@ -1,8 +1,5 @@
 # IAC setup for IK demo
 
-- name of LB should be demo, not example
-- keep installing ~ec2-user/.aws/credentials
-
 ## Setup Playbook
 - Bootstrap server
   - Prerequisites
@@ -31,7 +28,6 @@
 
 ## To Do
 - use IAM roles instead of .aws/credentials
-- lockdown ~jenkins/.aws to 700
 
 ## Developer config
 
