@@ -74,6 +74,11 @@ resource "aws_iam_instance_profile" "eks-cluster-demo" {
   role = aws_iam_role.demo.name
 }
 
+locals {
+  aws_credentials_filename = fileexists("/home/ec2-user/.aws/credentials") ? "/home/ec2-user/.aws/credentials" : "/home/scott/.aws/credentials"
+  ssh_private_key_filename = fileexists("/home/ec2-user/.ssh/IK.pem") ? "/home/ec2-user/.ssh/IK.pem" : "/home/scott/.ssh/IK.pem"
+}
+
 resource "aws_instance" "IK-bastion" {
   ami           = data.aws_ami.base_ami.id
   instance_type = "t3.medium"
@@ -90,7 +95,7 @@ resource "aws_instance" "IK-bastion" {
     type = "ssh"
     host = aws_instance.IK-bastion.public_ip
     user = "ec2-user"
-    private_key = "${file(var.ssh_private_key_file)}"
+    private_key = "${file(local.ssh_private_key_filename)}"
     agent = true
   }
 
@@ -104,12 +109,12 @@ resource "aws_instance" "IK-bastion" {
   }
 
   provisioner "file" {
-    source = var.aws_credentials_file
+    source = local.aws_credentials_filename
     destination = "/var/lib/jenkins/.aws/credentials"
   }
 
   provisioner "file" {
-    source = var.aws_credentials_file
+    source = local.aws_credentials_filename
     destination = "/home/ec2-user/.aws/credentials"
   }
 

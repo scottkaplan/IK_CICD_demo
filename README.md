@@ -27,6 +27,7 @@
         - Branch specification: */main
 
 ## To Do
+- docker push isn't restarting pods
 - use IAM roles instead of .aws/credentials
 
 ## Developer config
