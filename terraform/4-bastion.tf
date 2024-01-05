@@ -107,6 +107,11 @@ resource "aws_instance" "IK-bastion" {
     source = var.aws_credentials_file
     destination = "/var/lib/jenkins/.aws/credentials"
   }
+
+  provisioner "file" {
+    source = var.aws_credentials_file
+    destination = "/home/ec2-user/.aws/credentials"
+  }
 }
 
 resource "aws_eip" "IK-bastion" {
