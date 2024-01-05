@@ -112,15 +112,16 @@ resource "aws_instance" "IK-bastion" {
     source = var.aws_credentials_file
     destination = "/home/ec2-user/.aws/credentials"
   }
-}
 
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod 500 /var/lib/jenkins/.aws",
+      "sudo chmod 511 /var/lib/jenkins/.aws",
       "sudo chmod 400 /var/lib/jenkins/.aws/credentials",
+      "sudo chown jenkins:jenkins /var/lib/jenkins/.aws/credentials",
       "sudo chmod 400 /home/ec2-user/.aws/credentials",
     ]
   }
+}
 
 resource "aws_eip" "IK-bastion" {
   instance = aws_instance.IK-bastion.id
