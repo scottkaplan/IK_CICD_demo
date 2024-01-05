@@ -15,6 +15,7 @@ spec:
     spec:
       containers:
         - name: back-end
-          image: 775956577581.dkr.ecr.us-west-1.amazonaws.com/hello-repository:latest
+          image: 775956577581.dkr.ecr.us-west-1.amazonaws.com/hello-repository:sha256:5b7f14ca76885c444f6cd51c6493d94e0af146bef1dde7c0a6d09f0a45c582f3
+
           ports:
             - containerPort: 3000
