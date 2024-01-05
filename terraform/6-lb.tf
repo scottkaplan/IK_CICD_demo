@@ -8,9 +8,9 @@ provider "kubernetes" {
   }
 }
 
-resource "kubernetes_service" "example" {
+resource "kubernetes_service" "demo" {
   metadata {
-    name = "example"
+    name = "demo"
     annotations = {
       "service.beta.kubernetes.io/aws-load-balancer-name" = "demo"
       "service.beta.kubernetes.io/aws-load-balancer-type" = "nlb"
@@ -36,9 +36,9 @@ resource "aws_route53_record" "ik-k8s" {
   name    = "ik-k8s.kaplans.com"
   type    = "CNAME"
   ttl     = 300
-  records = [kubernetes_service.example.status.0.load_balancer.0.ingress.0.hostname]
+  records = [kubernetes_service.demo.status.0.load_balancer.0.ingress.0.hostname]
 }
 
 output "load_balancer_hostname" {
-  value = kubernetes_service.example.status.0.load_balancer.0.ingress.0.hostname
+  value = kubernetes_service.demo.status.0.load_balancer.0.ingress.0.hostname
 }
