@@ -13,7 +13,7 @@
     - `terraform apply --var aws_credentials_file="/home/scott/.aws/credentials" --var ssh_private_key_file="/home/scott/.ssh/IK.pem"`
        - default home directory is /home/ec2-user/...
 - Jenkins server
-  - Open Jenkins: https://ik-jenkins.kaplans.com:8080
+  - Open Jenkins: http://ik-jenkins.kaplans.com:8080
     - Paste initial admin password from 'terraform apply' output
     - Install basic plugins
     - Install Docker, Docker Pipeline plugins
