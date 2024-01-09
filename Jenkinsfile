@@ -37,12 +37,8 @@ pipeline {
 	      }
 	      stage('Deploying container to K8s') {
 	          steps {
-		            sh 'aws eks update-kubeconfig --region us-west-1 --name demo'
-		            sh 'aws sts get-caller-identity'
-		            sh 'kubectl auth whoami'
-		            sh 'kubectl version'
 		            sh 'kubectl apply -f k8s/deployment.yaml --force'
-		            // sh 'kubectl apply -f k8s/public-lb.yaml'
+		            sh 'kubectl rollout restart deployment/server-demo'
 	          }
 	      }
     }
