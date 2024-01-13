@@ -1,17 +1,16 @@
 # IAC setup for IK demo
 
 ## Setup Playbook
-- Bootstrap server
+- Bootstrap server (https://github.com/scottkaplan/IK_CICD_demo/bootstrap/bootstrap.sh)
   - Prerequisites
+    - AWS CLI
     - terraform
     - .aws/credentials
     - .ssh/IK-pem
-    - AWS CLI
   - Procedure
     - `git clone https://github.com/scottkaplan/IK_CICD_demo.git`
     - `cd terraform`
-    - `terraform apply --var aws_credentials_file="/home/scott/.aws/credentials" --var ssh_private_key_file="/home/scott/.ssh/IK.pem"`
-       - default home directory is /home/ec2-user/...
+    - `terraform apply`
 - Jenkins server
   - Open Jenkins: http://ik-jenkins.kaplans.com:8080
     - Paste initial admin password from 'terraform apply' output
