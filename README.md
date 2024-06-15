@@ -12,6 +12,7 @@
   - Procedure
     - `git clone https://github.com/scottkaplan/IK_CICD_demo.git`
     - `cd terraform`
+    - `terraform init`
     - `terraform apply`
 - Jenkins server
   - Open Jenkins: http://ik-jenkins.kaplans.com:8080
