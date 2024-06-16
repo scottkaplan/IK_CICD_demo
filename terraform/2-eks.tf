@@ -22,29 +22,6 @@ resource "aws_iam_role_policy_attachment" "demo-AmazonEKSClusterPolicy" {
   role       = aws_iam_role.demo.name
 }
 
-variable "cluster_name" {
-  default = "demo"
-  type = string
-  description = "AWS EKS Cluster Name"
-  nullable = false
-}
-
-resource "aws_eks_cluster" "demo" {
-  name     = var.cluster_name
-  role_arn = aws_iam_role.demo.arn
-
-  vpc_config {
-    subnet_ids = [
-      aws_subnet.private-us-west-1a.id,
-      aws_subnet.private-us-west-1c.id,
-      aws_subnet.public-us-west-1a.id,
-      aws_subnet.public-us-west-1c.id
-    ]
-  }
-
-  depends_on = [aws_iam_role_policy_attachment.demo-AmazonEKSClusterPolicy]
-}
-
 resource "aws_iam_role" "nodes" {
   name = "eks-node-group-nodes"
 
@@ -73,6 +50,62 @@ resource "aws_iam_role_policy_attachment" "nodes-AmazonEKS_CNI_Policy" {
 resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.nodes.name
+}
+
+variable "cluster_name" {
+  default = "demo"
+  type = string
+  description = "AWS EKS Cluster Name"
+  nullable = false
+}
+
+provider "kubernetes" {
+  host                   = aws_eks_cluster.demo.endpoint
+  cluster_ca_certificate = base64decode(aws_eks_cluster.demo.certificate_authority[0].data)
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
+    command     = "aws"
+  }
+}
+
+resource "kubernetes_service" "demo" {
+  metadata {
+    name = "demo"
+    annotations = {
+      "service.beta.kubernetes.io/aws-load-balancer-name" = "demo"
+      "service.beta.kubernetes.io/aws-load-balancer-type" = "nlb"
+      "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type" = "instance"
+      "service.beta.kubernetes.io/load-balancer-source-ranges" = "0.0.0.0/0"
+      "service.beta.kubernetes.io/aws-load-balancer-scheme": "internet-facing"
+    }
+  }
+  spec {
+    selector = {
+      app = "web"
+    }
+    port {
+      port        = 80
+      target_port = 80
+    }
+    type = "LoadBalancer"
+  }
+}
+
+resource "aws_eks_cluster" "demo" {
+  name     = var.cluster_name
+  role_arn = aws_iam_role.demo.arn
+
+  vpc_config {
+    subnet_ids = [
+      aws_subnet.private-us-west-1a.id,
+      aws_subnet.private-us-west-1c.id,
+      aws_subnet.public-us-west-1a.id,
+      aws_subnet.public-us-west-1c.id
+    ]
+  }
+
+  depends_on = [aws_iam_role_policy_attachment.demo-AmazonEKSClusterPolicy]
 }
 
 resource "aws_eks_node_group" "private-nodes" {
