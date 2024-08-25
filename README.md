@@ -7,6 +7,8 @@
     - terraform
     - .aws/credentials
     - .ssh/IK-pem
+    - in .bashrc: eval $(ssh-agent -s); ssh-add ~/.ssh/IK.pem
+
   - Procedure
     - `git clone https://github.com/scottkaplan/IK_CICD_demo.git`
     - `cd terraform`
