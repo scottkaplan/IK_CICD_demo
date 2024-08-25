@@ -1,4 +1,4 @@
-# IAC setup for IK demo
+# IAC setup for IK demo - Kilroy was here!
 
 ## Setup Playbook
 - Bootstrap server (https://github.com/scottkaplan/IK_CICD_demo/bootstrap/bootstrap.sh)
