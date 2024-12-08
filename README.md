@@ -1,6 +1,4 @@
-# IAC setup for IK demo
-
-# The SOT for all thing CI/CD.
+# IAC setup for IK demo - Version N+1
 
 ## Setup Playbook
 - Bootstrap server (https://github.com/scottkaplan/IK_CICD_demo/bootstrap/bootstrap.sh)
@@ -9,6 +7,8 @@
     - terraform
     - .aws/credentials
     - .ssh/IK-pem
+    - in .bashrc: eval $(ssh-agent -s); ssh-add ~/.ssh/IK.pem
+
   - Procedure
     - `git clone https://github.com/scottkaplan/IK_CICD_demo.git`
     - `cd terraform`
