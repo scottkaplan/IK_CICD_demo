@@ -27,6 +27,7 @@
         - SCM: Git
         - Repository URL: https://github.com/scottkaplan/IK_CICD_demo.git
         - Branch specification: */main
+- http://ik-k8s.kaplans.com/
 
 ## To Do
 - use IAM roles instead of .aws/credentials
