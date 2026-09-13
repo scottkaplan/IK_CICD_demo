@@ -1,4 +1,4 @@
-# IAC setup for IK demo - Version N+2
+# IAC setup for IK demo - Version N+3
 
 ## Setup Playbook
 - Bootstrap server (https://github.com/scottkaplan/IK_CICD_demo/bootstrap/bootstrap.sh)
